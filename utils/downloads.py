@@ -12,7 +12,7 @@ import urllib
 from pathlib import Path
 from zipfile import ZipFile
 
-import requests
+# import requests
 import torch
 
 
@@ -60,8 +60,9 @@ def attempt_download(file, repo='ultralytics/yolov5', release='v6.1'):
         # Return GitHub repo tag (i.e. 'v6.1') and assets (i.e. ['yolov5s.pt', 'yolov5m.pt', ...])
         if version != 'latest':
             version = f'tags/{version}'  # i.e. tags/v6.1
-        response = requests.get(f'https://api.github.com/repos/{repository}/releases/{version}').json()  # github api
-        return response['tag_name'], [x['name'] for x in response['assets']]  # tag, assets
+        return
+        # response = requests.get(f'https://api.github.com/repos/{repository}/releases/{version}').json()  # github api
+        # return response['tag_name'], [x['name'] for x in response['assets']]  # tag, assets
 
     file = Path(str(file).strip().replace("'", ''))
     if not file.exists():
