@@ -27,7 +27,7 @@ from zipfile import ZipFile
 
 import cv2
 import numpy as np
-import pandas as pd
+# import pandas as pd
 import pkg_resources as pkg
 import torch
 import torchvision
@@ -49,7 +49,7 @@ FONT = 'Arial.ttf'  # https://ultralytics.com/assets/Arial.ttf
 
 torch.set_printoptions(linewidth=320, precision=5, profile='long')
 np.set_printoptions(linewidth=320, formatter={'float_kind': '{:11.5g}'.format})  # format short g, %precision=5
-pd.options.display.max_columns = 10
+# pd.options.display.max_columns = 10
 cv2.setNumThreads(0)  # prevent OpenCV from multithreading (incompatible with PyTorch DataLoader)
 os.environ['NUMEXPR_MAX_THREADS'] = str(NUM_THREADS)  # NumExpr max threads
 os.environ['OMP_NUM_THREADS'] = '1' if platform.system() == 'darwin' else str(NUM_THREADS)  # OpenMP (PyTorch and SciPy)
@@ -1016,15 +1016,15 @@ def print_mutation(results, hyp, save_dir, bucket, prefix=colorstr('evolve: ')):
         f.write(s + ('%20.5g,' * n % vals).rstrip(',') + '\n')
 
     # Save yaml
-    with open(evolve_yaml, 'w') as f:
-        data = pd.read_csv(evolve_csv)
-        data = data.rename(columns=lambda x: x.strip())  # strip keys
-        i = np.argmax(fitness(data.values[:, :4]))  #
-        generations = len(data)
-        f.write('# YOLOv5 Hyperparameter Evolution Results\n' + f'# Best generation: {i}\n' +
-                f'# Last generation: {generations - 1}\n' + '# ' + ', '.join(f'{x.strip():>20s}' for x in keys[:7]) +
-                '\n' + '# ' + ', '.join(f'{x:>20.5g}' for x in data.values[i, :7]) + '\n\n')
-        yaml.safe_dump(data.loc[i][7:].to_dict(), f, sort_keys=False)
+    # with open(evolve_yaml, 'w') as f:
+    #     data = pd.read_csv(evolve_csv)
+    #     data = data.rename(columns=lambda x: x.strip())  # strip keys
+    #     i = np.argmax(fitness(data.values[:, :4]))  #
+    #     generations = len(data)
+    #     f.write('# YOLOv5 Hyperparameter Evolution Results\n' + f'# Best generation: {i}\n' +
+    #             f'# Last generation: {generations - 1}\n' + '# ' + ', '.join(f'{x.strip():>20s}' for x in keys[:7]) +
+    #             '\n' + '# ' + ', '.join(f'{x:>20.5g}' for x in data.values[i, :7]) + '\n\n')
+    #     yaml.safe_dump(data.loc[i][7:].to_dict(), f, sort_keys=False)
 
     # Print to screen
     LOGGER.info(prefix + f'{generations} generations finished, current result:\n' + prefix +
